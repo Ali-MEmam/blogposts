@@ -3,7 +3,7 @@ import { Container, Navbar } from "react-bootstrap";
 
 const NavbarBlack: FC = () => (
   <Navbar bg="dark">
-    <Container>
+    <Container fluid>
       <Navbar.Brand href="#home">
         <img
           src="/logo.svg"
