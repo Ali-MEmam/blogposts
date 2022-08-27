@@ -5,9 +5,10 @@ import { Button, Col, Row } from "react-bootstrap";
 import EditForm from "./Form/EditForm";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  getSinglePost,
-  setSinglePostState,
-} from "../../../Redux/slices/Posts/GetAllPostsSlice";
+  getSinglePostStart,
+  getSinglePostSuccess,
+} from "../../../Redux/Actions/PostsActions/GetSinglePostActions";
+
 const EditPost: FC = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const EditPost: FC = () => {
 
   useEffect(() => {
     if (postId) {
-      dispatch(getSinglePost(parseInt(postId)));
+      dispatch(getSinglePostStart(parseInt(postId)));
     }
   }, [dispatch, postId]);
 
@@ -27,7 +28,7 @@ const EditPost: FC = () => {
             className="mb-3"
             onClick={() => {
               dispatch(
-                setSinglePostState({ id: 0, title: "", body: "", userId: 0 })
+                getSinglePostSuccess({ id: 0, title: "", body: "", userId: 0 })
               );
               navigate("/");
             }}

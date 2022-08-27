@@ -2,7 +2,7 @@ import { faPenSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FC } from "react";
 import { Table } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Post } from "../../../../Redux/Models/PostsModel";
 import { RootState } from "../../../../Redux/Store";
@@ -11,7 +11,7 @@ import ViewPost from "../../Modals/ViewPostModal/ViewPostModal";
 
 const PostsTable: FC<any> = ({ posts }) => {
   const navigate = useNavigate();
-  const loader = useSelector<RootState>((store) => store.posts.isLoading);
+  const loader = useSelector<RootState>((store) => store.isLoader);
 
   return (
     <div>
@@ -24,7 +24,7 @@ const PostsTable: FC<any> = ({ posts }) => {
           </tr>
         </thead>
         <tbody className="poststable__body">
-          {!loader ? (
+          {!loader &&
             posts?.map((post: Post) => (
               <tr key={post.id} className="poststable__body-row">
                 <td className="poststable__body-cell">{post.title}</td>
@@ -36,7 +36,6 @@ const PostsTable: FC<any> = ({ posts }) => {
                       className="poststable__body-actions--btn"
                       type="button"
                       onClick={() => {
-                        console.log(navigate);
                         navigate(`/${post.id}`);
                       }}
                     >
@@ -46,11 +45,11 @@ const PostsTable: FC<any> = ({ posts }) => {
                   </div>
                 </td>
               </tr>
-            ))
-          ) : (
+            ))}
+          {(loader || !posts.length) && (
             <tr>
               <td colSpan={3} className="text-center">
-                Loading...
+                {loader ? "loading..." : "No Result Found"}
               </td>
             </tr>
           )}

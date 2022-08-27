@@ -4,7 +4,7 @@ import React, { FC, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useDispatch } from "react-redux";
-import { deletePost } from "../../../../Redux/slices/Posts/GetAllPostsSlice";
+import { getDeletePostStart } from "../../../../Redux/Actions/PostsActions/DeletePostActions";
 import { IProps } from "../ViewPostModal/modal";
 
 const DeletePostModal: FC<IProps> = ({ post }) => {
@@ -30,7 +30,7 @@ const DeletePostModal: FC<IProps> = ({ post }) => {
           <Button
             variant="danger"
             onClick={() => {
-              dispatch(deletePost(post.id));
+              dispatch(getDeletePostStart(post.id));
             }}
           >
             Delete

@@ -8,6 +8,15 @@ import {
   SelectEffect,
   takeEvery,
 } from "redux-saga/effects";
+import { setError } from "../Actions/ErrorsActions/ErrorActions";
+import {
+  setLoaderEnd,
+  setLoaderStart,
+} from "../Actions/LoaderActions/LoaderActions";
+import { getDeletePostSuccess } from "../Actions/PostsActions/DeletePostActions";
+import { getPostsSuccess } from "../Actions/PostsActions/GetAllAPostsctions";
+import { getSinglePostSuccess } from "../Actions/PostsActions/GetSinglePostActions";
+import { getUpdatePostSuccess } from "../Actions/PostsActions/UpdatePostActions";
 import { IReduxStatePosts, Post } from "../Models/PostsModel";
 import {
   deletePostRequest,
@@ -15,36 +24,43 @@ import {
   getAllPostsRequest,
   getSinglePostRequest,
 } from "../Requesets/PostsCRUD";
-import {
-  setPostFailure,
-  setPostsState,
-  setSinglePostState,
-} from "../slices/Posts/GetAllPostsSlice";
-import { RootState } from "../Store";
 
-function* handleGetAllPosts(): Generator<CallEffect | PutEffect, void, any> {
+function* handleGetAllPosts(): Generator<
+  CallEffect | PutEffect,
+  void,
+  IReduxStatePosts | any
+> {
   try {
+    yield put(setLoaderStart());
     const posts = yield call(getAllPostsRequest);
     const formattedPosts = yield posts.json();
-    yield put(setPostsState(formattedPosts));
+    yield put(getPostsSuccess(formattedPosts));
+    yield put(setLoaderEnd());
   } catch (error) {
+    yield put(setLoaderEnd());
     if (error instanceof Error) {
-      yield put(setPostFailure(error.message));
+      yield put(setError(error.message));
     }
   }
 }
 
 function* handleGetSinglePost(
   action: PayloadAction<Number>
-): Generator<CallEffect | PutEffect, void, any> {
-  console.log(action);
+): Generator<SelectEffect | CallEffect | PutEffect, void, any> {
   try {
+    yield put(setLoaderStart());
     const posts = yield call(getSinglePostRequest, action.payload);
     const formattedPosts = yield posts.json();
-    yield put(setSinglePostState(formattedPosts));
+    const store = yield select();
+    const updatedElement = store.posts.posts.find(
+      (post: any) => formattedPosts.id === post.id
+    );
+    yield put(getSinglePostSuccess(updatedElement || formattedPosts));
+    yield put(setLoaderEnd());
   } catch (error) {
+    yield put(setLoaderEnd());
     if (error instanceof Error) {
-      yield put(setPostFailure(error.message));
+      yield put(setError(error.message));
     }
   }
 }
@@ -53,20 +69,16 @@ function* handleEditPost(
   action: PayloadAction<Post>
 ): Generator<SelectEffect | CallEffect | PutEffect, void, any> {
   try {
+    yield put(setLoaderStart());
     const posts = yield call(editPostRequest, action.payload);
     if (posts.ok) {
-      const state = yield select();
-      const newPostsWithoutDeleted = state.posts.posts.map((post: Post) =>
-        post.id === action.payload.id ? action.payload : post
-      );
-      yield put(setPostsState(newPostsWithoutDeleted));
-    } else {
-      yield put(setPostFailure("JSON PLACEHOLDER Special Case"));
+      yield put(getUpdatePostSuccess(action.payload));
+      yield put(setLoaderEnd());
     }
-    // yield put(getPostsSuccess(formattedPosts));
   } catch (error) {
+    yield put(setLoaderEnd());
     if (error instanceof Error) {
-      yield put(setPostFailure(error.message));
+      yield put(setError(error.message));
     }
   }
 }
@@ -75,28 +87,26 @@ function* handleDeletePost(
   action: PayloadAction<Number>
 ): Generator<SelectEffect | CallEffect | PutEffect, void, any> {
   try {
+    yield put(setLoaderStart());
     const posts = yield call(deletePostRequest, action.payload);
     if (posts.ok) {
-      const state = yield select();
-      const newPostsWithoutDeleted = state.posts.posts.filter(
-        (post: Post) => post.id !== action.payload
-      );
-      yield put(setPostsState(newPostsWithoutDeleted));
-    } else {
-      yield put(setPostFailure("JSON PLACEHOLDER Special Case"));
+      console.log(action.payload);
+      yield put(getDeletePostSuccess(action.payload));
+      yield put(setLoaderEnd());
     }
   } catch (error) {
+    yield put(setLoaderEnd());
     if (error instanceof Error) {
-      yield put(setPostFailure(error.message));
+      yield put(setError(error.message));
     }
   }
 }
 
 function* watcherPostsSaga() {
-  yield takeEvery("posts/getAllPosts", handleGetAllPosts);
-  yield takeEvery("posts/getSinglePost", handleGetSinglePost);
-  yield takeEvery("posts/updatePost", handleEditPost);
-  yield takeEvery("posts/deletePost", handleDeletePost);
+  yield takeEvery("posts/getAllPostsFetch", handleGetAllPosts);
+  yield takeEvery("posts/getSinglePostFetch", handleGetSinglePost);
+  yield takeEvery("posts/getUpdatePostFetch", handleEditPost);
+  yield takeEvery("posts/getDeletePostFetch", handleDeletePost);
 }
 
 export default watcherPostsSaga;

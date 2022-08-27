@@ -1,8 +1,8 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { getUpdatePostStart } from "../../../../Redux/Actions/PostsActions/UpdatePostActions";
 import { Post } from "../../../../Redux/Models/PostsModel";
-import { updatePost } from "../../../../Redux/slices/Posts/GetAllPostsSlice";
 import { RootState } from "../../../../Redux/Store";
 const initalState: Post = {
   id: 0,
@@ -30,7 +30,7 @@ const EditForm: FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!!postData.title && !!postData.body) {
-      dispatch(updatePost(postData));
+      dispatch(getUpdatePostStart(postData));
     }
   };
   return (

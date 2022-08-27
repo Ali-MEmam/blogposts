@@ -11,3 +11,8 @@ export interface IReduxStatePosts {
   viewedPost?: Post;
   error?: String;
 }
+
+export interface IPostReducerState {
+  posts: Post[];
+  viewedPost?: Post;
+}
