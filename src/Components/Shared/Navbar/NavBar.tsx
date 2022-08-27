@@ -6,7 +6,7 @@ const NavbarBlack: FC = () => (
     <Container fluid>
       <Navbar.Brand href="#home">
         <img
-          src="/logo.svg"
+          src="./logo192.png"
           width="30"
           height="30"
           className="d-inline-block align-top"

@@ -5,16 +5,16 @@ export const getAllPostsRequest = (): Promise<Response> => {
 };
 
 export const getSinglePostRequest = (id: Number): Promise<Response> => {
-  console.log(id);
-  return fetch("https://jsonplaceholder.typicode.com/posts");
+  return fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
 };
 
 export const editPostRequest = (post: Post): Promise<Response> => {
-  console.log(post.id);
   return fetch("https://jsonplaceholder.typicode.com/posts");
 };
 
 export const deletePostRequest = (id: Number): Promise<Response> => {
-  console.log(id);
-  return fetch("https://jsonplaceholder.typicode.com/posts");
+  // console.log(id);
+  return fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    method: "delete",
+  });
 };

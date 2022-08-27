@@ -8,4 +8,5 @@ export interface Post {
 export interface IReduxStatePosts {
   posts: Post[];
   isLoading: boolean;
+  error?: String;
 }

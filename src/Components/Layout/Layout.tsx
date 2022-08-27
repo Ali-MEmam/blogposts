@@ -1,8 +1,16 @@
 import { FC } from "react";
 import { Container } from "react-bootstrap";
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import Navbar from "../Shared/Navbar/NavBar";
 const Layout: FC = () => {
-  return <Outlet />;
+  return (
+    <>
+      <Navbar />
+      <Container fluid>
+        <Outlet />
+      </Container>
+    </>
+  );
 };
 
 export default Layout;

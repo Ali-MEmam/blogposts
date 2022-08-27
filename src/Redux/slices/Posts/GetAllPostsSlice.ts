@@ -4,46 +4,59 @@ import { IReduxStatePosts, Post } from "../../Models/PostsModel";
 const initialState: IReduxStatePosts = {
   posts: [],
   isLoading: false,
+  error: "",
 };
 
 const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    getPostsFetch: (state: IReduxStatePosts): void => {
+    getAllPosts: (state: IReduxStatePosts): void => {
       state.isLoading = true;
+      state.error = "";
     },
-    getPostsSuccess: (
+    getSinglePost: (
+      state: IReduxStatePosts,
+      action: PayloadAction<Number | undefined>
+    ): void => {
+      state.isLoading = true;
+      state.error = "";
+    },
+    deletePost: (
+      state: IReduxStatePosts,
+      action: PayloadAction<Number>
+    ): void => {
+      state.isLoading = true;
+      state.error = "";
+    },
+    updatePost: (
+      state: IReduxStatePosts,
+      action: PayloadAction<Post>
+    ): void => {
+      state.isLoading = true;
+      state.error = "";
+    },
+    setPostsState: (
       state: IReduxStatePosts,
       action: PayloadAction<Post[]>
     ): void => {
       state.posts = action.payload;
       state.isLoading = false;
     },
-    getPostsFailure: (state: IReduxStatePosts): void => {
+    setPostFailure: (state: IReduxStatePosts, action): void => {
       state.isLoading = false;
-    },
-    deletePost: (
-      state: IReduxStatePosts,
-      actions: PayloadAction<Number>
-    ): void => {
-      state.isLoading = true;
-    },
-    updatePost: (
-      state: IReduxStatePosts,
-      actions: PayloadAction<Post>
-    ): void => {
-      state.isLoading = true;
+      state.error = action.payload;
     },
   },
 });
 
 export const {
-  getPostsFetch,
-  getPostsSuccess,
-  getPostsFailure,
+  getAllPosts,
+  setPostsState,
+  setPostFailure,
   deletePost,
   updatePost,
+  getSinglePost,
 } = postsSlice.actions;
 
 export default postsSlice.reducer;
