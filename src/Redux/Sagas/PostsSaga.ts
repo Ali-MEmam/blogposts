@@ -18,7 +18,9 @@ import {
 import {
   setPostFailure,
   setPostsState,
+  setSinglePostState,
 } from "../slices/Posts/GetAllPostsSlice";
+import { RootState } from "../Store";
 
 function* handleGetAllPosts(): Generator<CallEffect | PutEffect, void, any> {
   try {
@@ -39,7 +41,7 @@ function* handleGetSinglePost(
   try {
     const posts = yield call(getSinglePostRequest, action.payload);
     const formattedPosts = yield posts.json();
-    // yield put(getPostsSuccess(formattedPosts));
+    yield put(setSinglePostState(formattedPosts));
   } catch (error) {
     if (error instanceof Error) {
       yield put(setPostFailure(error.message));
@@ -49,9 +51,18 @@ function* handleGetSinglePost(
 
 function* handleEditPost(
   action: PayloadAction<Post>
-): Generator<CallEffect | PutEffect> {
+): Generator<SelectEffect | CallEffect | PutEffect, void, any> {
   try {
     const posts = yield call(editPostRequest, action.payload);
+    if (posts.ok) {
+      const state = yield select();
+      const newPostsWithoutDeleted = state.posts.posts.map((post: Post) =>
+        post.id === action.payload.id ? action.payload : post
+      );
+      yield put(setPostsState(newPostsWithoutDeleted));
+    } else {
+      yield put(setPostFailure("JSON PLACEHOLDER Special Case"));
+    }
     // yield put(getPostsSuccess(formattedPosts));
   } catch (error) {
     if (error instanceof Error) {
@@ -65,12 +76,14 @@ function* handleDeletePost(
 ): Generator<SelectEffect | CallEffect | PutEffect, void, any> {
   try {
     const posts = yield call(deletePostRequest, action.payload);
-    if (posts.status === 200) {
+    if (posts.ok) {
       const state = yield select();
       const newPostsWithoutDeleted = state.posts.posts.filter(
         (post: Post) => post.id !== action.payload
       );
       yield put(setPostsState(newPostsWithoutDeleted));
+    } else {
+      yield put(setPostFailure("JSON PLACEHOLDER Special Case"));
     }
   } catch (error) {
     if (error instanceof Error) {

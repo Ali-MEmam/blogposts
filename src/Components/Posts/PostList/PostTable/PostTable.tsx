@@ -1,15 +1,15 @@
-import { faEye, faPenSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPenSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FC } from "react";
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Post } from "../../../../Redux/Models/PostsModel";
-import { deletePost } from "../../../../Redux/slices/Posts/GetAllPostsSlice";
 import { RootState } from "../../../../Redux/Store";
+import DeletePost from "../../Modals/DeleteModal/DeleteModal";
+import ViewPost from "../../Modals/ViewPostModal/ViewPostModal";
 
 const PostsTable: FC<any> = ({ posts }) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const loader = useSelector<RootState>((store) => store.posts.isLoading);
 
@@ -31,16 +31,7 @@ const PostsTable: FC<any> = ({ posts }) => {
                 <td className="poststable__body-cell">{post.body}</td>
                 <td className="poststable__body-cell">
                   <div className="poststable__body-actions">
-                    <button
-                      className="poststable__body-actions--btn"
-                      type="button"
-                      onClick={() => {
-                        console.log(navigate);
-                        navigate(`/${post.id}`);
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faEye} />
-                    </button>
+                    <ViewPost post={post} />
                     <button
                       className="poststable__body-actions--btn"
                       type="button"
@@ -51,15 +42,7 @@ const PostsTable: FC<any> = ({ posts }) => {
                     >
                       <FontAwesomeIcon icon={faPenSquare} />
                     </button>
-                    <button
-                      className="poststable__body-actions--btn"
-                      onClick={() => {
-                        console.log(navigate);
-                        dispatch(deletePost(post.id));
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                    </button>
+                    <DeletePost post={post} />
                   </div>
                 </td>
               </tr>

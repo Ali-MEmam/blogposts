@@ -8,7 +8,6 @@ import { Col, Row } from "react-bootstrap";
 import { getAllPosts } from "../../../Redux/slices/Posts/GetAllPostsSlice";
 import { Post } from "../../../Redux/Models/PostsModel";
 const PostsList: FC = () => {
-  const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState("");
   const posts: Post[] | unknown = useSelector<RootState>(
     (store) => store.posts.posts
@@ -17,9 +16,6 @@ const PostsList: FC = () => {
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) =>
     setSearchValue(e.target.value);
 
-  useEffect(() => {
-    dispatch(getAllPosts());
-  }, [dispatch]);
   return (
     <Row className="justify-content-center">
       <Col xs="12">

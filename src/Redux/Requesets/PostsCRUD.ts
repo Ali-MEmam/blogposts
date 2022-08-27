@@ -9,11 +9,13 @@ export const getSinglePostRequest = (id: Number): Promise<Response> => {
 };
 
 export const editPostRequest = (post: Post): Promise<Response> => {
-  return fetch("https://jsonplaceholder.typicode.com/posts");
+  return fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}`, {
+    method: "put",
+    body: JSON.stringify(post),
+  });
 };
 
 export const deletePostRequest = (id: Number): Promise<Response> => {
-  // console.log(id);
   return fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
     method: "delete",
   });

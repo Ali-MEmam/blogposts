@@ -4,6 +4,12 @@ import { IReduxStatePosts, Post } from "../../Models/PostsModel";
 const initialState: IReduxStatePosts = {
   posts: [],
   isLoading: false,
+  viewedPost: {
+    id: 0,
+    title: "",
+    body: "",
+    userId: 0,
+  },
   error: "",
 };
 
@@ -43,6 +49,13 @@ const postsSlice = createSlice({
       state.posts = action.payload;
       state.isLoading = false;
     },
+    setSinglePostState: (
+      state: IReduxStatePosts,
+      action: PayloadAction<Post>
+    ): void => {
+      state.viewedPost = action.payload;
+      state.isLoading = false;
+    },
     setPostFailure: (state: IReduxStatePosts, action): void => {
       state.isLoading = false;
       state.error = action.payload;
@@ -52,11 +65,12 @@ const postsSlice = createSlice({
 
 export const {
   getAllPosts,
-  setPostsState,
-  setPostFailure,
+  getSinglePost,
   deletePost,
   updatePost,
-  getSinglePost,
+  setPostsState,
+  setPostFailure,
+  setSinglePostState,
 } = postsSlice.actions;
 
 export default postsSlice.reducer;
