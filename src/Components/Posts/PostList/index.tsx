@@ -25,7 +25,12 @@ const PostsList: FC = () => {
     setFilterdPost(() =>
       posts.filter(
         (post: Post) =>
-          post.title.includes(searchValue) || post.body.includes(searchValue)
+          post.title
+            .toLocaleLowerCase()
+            .includes(searchValue.toLocaleLowerCase()) ||
+          post.body
+            .toLocaleLowerCase()
+            .includes(searchValue.toLocaleLowerCase())
       )
     );
   }, [searchValue, posts]);

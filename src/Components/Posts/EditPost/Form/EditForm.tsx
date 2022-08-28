@@ -13,7 +13,10 @@ const initalState: Post = {
 };
 const EditForm: FC = () => {
   const dispatch = useDispatch();
-  const viewedPost = useSelector<RootState>((store) => store.posts.viewedPost);
+  const viewedPost = useSelector<RootState, Post>(
+    (store) => store.posts.viewedPost
+  );
+  const Loader = useSelector<RootState, boolean>((store) => store.isLoader);
   const [postData, setPostData] = useState<Post>(initalState);
   const navigate = useNavigate();
   useEffect(() => {
@@ -34,6 +37,16 @@ const EditForm: FC = () => {
       dispatch(getUpdatePostStart({ post: postData, navigate: navigate }));
     }
   };
+
+  const handleDisabledButton = (): boolean => {
+    return (
+      Loader ||
+      postData.title.trim().length === 0 ||
+      postData.body.trim().length === 0 ||
+      (viewedPost.body === postData.body && viewedPost.title === postData.title)
+    );
+  };
+
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3">
@@ -55,11 +68,7 @@ const EditForm: FC = () => {
           name="body"
         />
       </Form.Group>
-      <Button
-        className="w-100"
-        type="submit"
-        disabled={!postData.title || !postData.body}
-      >
+      <Button className="w-100" type="submit" disabled={handleDisabledButton()}>
         Submit
       </Button>
     </Form>

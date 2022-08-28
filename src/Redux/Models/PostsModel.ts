@@ -6,7 +6,7 @@ export interface Post {
 }
 export interface IPostReducerState {
   posts: Post[];
-  viewedPost?: Post;
+  viewedPost: Post;
 }
 
 export interface IPostUpdateAndNavigate {
