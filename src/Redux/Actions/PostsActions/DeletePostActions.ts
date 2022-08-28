@@ -1,4 +1,3 @@
-import { Post } from "../../Models/PostsModel";
 import {
   FETCH_DELETE_POSTS_FAILURE,
   FETCH_DELETE_POSTS_START,

@@ -8,6 +8,14 @@ import {
   getSinglePostStart,
   getSinglePostSuccess,
 } from "../../../Redux/Actions/PostsActions/GetSinglePostActions";
+import { Post } from "../../../Redux/Models/PostsModel";
+
+const initalState: Post = {
+  id: 0,
+  title: "",
+  body: "",
+  userId: 0,
+};
 
 const EditPost: FC = () => {
   const { postId } = useParams();
@@ -32,14 +40,7 @@ const EditPost: FC = () => {
               <Button
                 className="mb-3 mx-auto"
                 onClick={() => {
-                  dispatch(
-                    getSinglePostSuccess({
-                      id: 0,
-                      title: "",
-                      body: "",
-                      userId: 0,
-                    })
-                  );
+                  dispatch(getSinglePostSuccess(initalState));
                   navigate("/blogposts");
                 }}
               >
