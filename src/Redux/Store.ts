@@ -1,15 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import { LoaderReducer } from "./Reducers/LoaderReducer";
-import { postsReducer } from "./Reducers/PostsReducer";
+import { errorReducer, LoaderReducer, postsReducer } from "./Reducers";
 import rootSaga from "./Sagas/index";
-// import postsSlice from "./slices/Posts/GetAllPostsSlice";
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
   reducer: {
     posts: postsReducer,
     isLoader: LoaderReducer,
+    error: errorReducer,
   },
   middleware: (getDefaultMiddleWare) =>
     getDefaultMiddleWare({ thunk: false }).concat(sagaMiddleware),

@@ -1,10 +1,6 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Container } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
 import "./App.scss";
-import PostsLayout from "./Components/Layouts/PostsLayout";
-import Navbar from "./Components/Shared/Navbar/NavBar";
+import PostsLayout from "./Layouts/PostsLayout";
 import PostsList from "./Components/Posts/PostList";
 import EditPost from "./Components/Posts/EditPost";
 

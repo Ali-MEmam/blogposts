@@ -1,4 +1,4 @@
-import { IReduxStatePosts } from "../../Models/PostsModel";
+import { IPostReducerState } from "../../Models/PostsModel";
 import {
   FETCH_ALL_POSTS_FAILURE,
   FETCH_ALL_POSTS_START,
@@ -11,7 +11,7 @@ export function getPostsStart() {
   };
 }
 
-export function getPostsSuccess(post: IReduxStatePosts) {
+export function getPostsSuccess(post: IPostReducerState) {
   return {
     type: FETCH_ALL_POSTS_SUCCESS,
     payload: post,

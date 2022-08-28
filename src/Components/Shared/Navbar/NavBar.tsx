@@ -2,17 +2,9 @@ import React, { FC } from "react";
 import { Container, Navbar } from "react-bootstrap";
 
 const NavbarBlack: FC = () => (
-  <Navbar bg="dark">
+  <Navbar bg="light">
     <Container fluid>
-      <Navbar.Brand href="#home">
-        <img
-          src="./logo192.png"
-          width="30"
-          height="30"
-          className="d-inline-block align-top"
-          alt="React Bootstrap logo"
-        />
-      </Navbar.Brand>
+      <Navbar.Brand>Blog Post</Navbar.Brand>
     </Container>
   </Navbar>
 );

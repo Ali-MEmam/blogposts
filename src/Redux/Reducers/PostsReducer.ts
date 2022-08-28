@@ -1,4 +1,4 @@
-import { PayloadAction, Reducer } from "@reduxjs/toolkit";
+import { AnyAction, Reducer } from "@reduxjs/toolkit";
 import { IPostReducerState, Post } from "../Models/PostsModel";
 
 import {
@@ -17,9 +17,10 @@ const initialState: IPostReducerState = {
     userId: 0,
   },
 };
-export const postsReducer: Reducer<any, any> = (
-  state: any = initialState,
-  action: PayloadAction<any>
+
+export const postsReducer: Reducer<IPostReducerState, AnyAction> = (
+  state: IPostReducerState = initialState,
+  action: AnyAction
 ) => {
   switch (action.type) {
     case FETCH_ALL_POSTS_SUCCESS:

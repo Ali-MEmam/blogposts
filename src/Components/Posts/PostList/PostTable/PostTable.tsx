@@ -8,8 +8,9 @@ import { Post } from "../../../../Redux/Models/PostsModel";
 import { RootState } from "../../../../Redux/Store";
 import DeletePost from "../../Modals/DeleteModal/DeleteModal";
 import ViewPost from "../../Modals/ViewPostModal/ViewPostModal";
+import { IProps } from "./model";
 
-const PostsTable: FC<any> = ({ posts }) => {
+const PostsTable: FC<IProps> = ({ posts }) => {
   const navigate = useNavigate();
   const loader = useSelector<RootState>((store) => store.isLoader);
 
@@ -24,35 +25,37 @@ const PostsTable: FC<any> = ({ posts }) => {
           </tr>
         </thead>
         <tbody className="poststable__body">
-          {!loader &&
-            posts?.map((post: Post) => (
-              <tr key={post.id} className="poststable__body-row">
-                <td className="poststable__body-cell">{post.title}</td>
-                <td className="poststable__body-cell">{post.body}</td>
-                <td className="poststable__body-cell">
-                  <div className="poststable__body-actions">
-                    <ViewPost post={post} />
-                    <button
-                      className="poststable__body-actions--btn"
-                      type="button"
-                      onClick={() => {
-                        navigate(`/${post.id}`);
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faPenSquare} />
-                    </button>
-                    <DeletePost post={post} />
-                  </div>
+          <>
+            {!loader &&
+              posts?.map((post: Post) => (
+                <tr key={post.id} className="poststable__body-row">
+                  <td className="poststable__body-cell">{post.title}</td>
+                  <td className="poststable__body-cell">{post.body}</td>
+                  <td className="poststable__body-cell">
+                    <div className="poststable__body-actions">
+                      <ViewPost post={post} />
+                      <button
+                        className="poststable__body-actions--btn"
+                        type="button"
+                        onClick={() => {
+                          navigate(`/${post.id}`);
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faPenSquare} />
+                      </button>
+                      <DeletePost post={post} />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            {(loader || !posts.length) && (
+              <tr>
+                <td colSpan={3} className="text-center">
+                  {loader ? "loading..." : "No Result Found"}
                 </td>
               </tr>
-            ))}
-          {(loader || !posts.length) && (
-            <tr>
-              <td colSpan={3} className="text-center">
-                {loader ? "loading..." : "No Result Found"}
-              </td>
-            </tr>
-          )}
+            )}
+          </>
         </tbody>
       </Table>
     </div>

@@ -1,12 +1,11 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { Reducer } from "redux";
+import { AnyAction, Reducer } from "redux";
 import { REMOVE_ERROR, SET_ERROR } from "../Types/ErrorTypes";
 
 const initalState: String = "";
 
-export const errorReducer: Reducer<any, any> = (
+export const errorReducer: Reducer<String, AnyAction> = (
   state: String = initalState,
-  action: PayloadAction<String>
+  action: AnyAction
 ) => {
   switch (action.type) {
     case SET_ERROR:

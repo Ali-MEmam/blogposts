@@ -17,7 +17,7 @@ import { getDeletePostSuccess } from "../Actions/PostsActions/DeletePostActions"
 import { getPostsSuccess } from "../Actions/PostsActions/GetAllAPostsctions";
 import { getSinglePostSuccess } from "../Actions/PostsActions/GetSinglePostActions";
 import { getUpdatePostSuccess } from "../Actions/PostsActions/UpdatePostActions";
-import { IReduxStatePosts, Post } from "../Models/PostsModel";
+import { Post } from "../Models/PostsModel";
 import {
   deletePostRequest,
   editPostRequest,
@@ -25,11 +25,7 @@ import {
   getSinglePostRequest,
 } from "../Requesets/PostsCRUD";
 
-function* handleGetAllPosts(): Generator<
-  CallEffect | PutEffect,
-  void,
-  IReduxStatePosts | any
-> {
+function* handleGetAllPosts(): Generator<CallEffect | PutEffect, void, any> {
   try {
     yield put(setLoaderStart());
     const posts = yield call(getAllPostsRequest);
@@ -90,7 +86,6 @@ function* handleDeletePost(
     yield put(setLoaderStart());
     const posts = yield call(deletePostRequest, action.payload);
     if (posts.ok) {
-      console.log(action.payload);
       yield put(getDeletePostSuccess(action.payload));
       yield put(setLoaderEnd());
     }

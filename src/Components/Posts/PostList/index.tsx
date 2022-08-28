@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/Store";
 import PostsTable from "./PostTable/PostTable";
 import "./PostList.scss";
@@ -9,12 +9,12 @@ import { Post } from "../../../Redux/Models/PostsModel";
 import Pagination from "../../Shared/Pagination/Pagination";
 import { SlicePagination } from "../../../utilities/Helpers";
 const PostsList: FC = () => {
-  const [searchValue, setSearchValue] = useState("");
-  const [currentPage, setCurrentPage] = useState(5);
-  const [filterdPost, setFilterdPost] = useState([]);
-  const posts: Post[] | any = useSelector<RootState>(
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(5);
+  const [filterdPost, setFilterdPost] = useState<Post[]>([]);
+  const posts: Post[] = useSelector<RootState>(
     (store) => store.posts.posts
-  );
+  ) as Post[];
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) =>
     setSearchValue(e.target.value);
