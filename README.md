@@ -18,4 +18,10 @@ Open [http://localhost:3000/blogposts/](http://localhost:3000/blogposts/) to vie
 
 to Deploy To GitHub Pages
 
-contact me [ali.emamfe@gmail.com]
+## TO Check the live Server
+
+Open [https://ali-memam.github.io/blogposts](https://ali-memam.github.io/blogposts) to view posts list.
+
+## contact me
+
+[ali.emamfe@gmail.com]
