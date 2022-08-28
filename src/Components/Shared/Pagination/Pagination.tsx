@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Pagination } from "react-bootstrap";
 import { IProps } from "./model";
-
+import "./Pagination.scss";
 const PaginationItems: FC<IProps> = ({
   totalNumber,
   pageMax,
