@@ -38,7 +38,7 @@ const EditPost: FC = () => {
             </Col>
             <Col xs="auto">
               <Button
-                className="mb-3 mx-auto"
+                variant="outline-primary mb-3"
                 onClick={() => {
                   dispatch(getSinglePostSuccess(initalState));
                   navigate("/blogposts");

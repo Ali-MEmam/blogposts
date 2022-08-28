@@ -4,7 +4,7 @@ import { Container, Navbar } from "react-bootstrap";
 const NavbarBlack: FC = () => (
   <Navbar bg="light">
     <Container fluid>
-      <Navbar.Brand>Blog Post</Navbar.Brand>
+      <Navbar.Brand>Blog Posts</Navbar.Brand>
     </Container>
   </Navbar>
 );

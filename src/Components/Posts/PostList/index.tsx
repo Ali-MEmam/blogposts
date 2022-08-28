@@ -28,9 +28,10 @@ const PostsList: FC = () => {
           post.title.includes(searchValue) || post.body.includes(searchValue)
       )
     );
-    setCurrentPage(1);
   }, [searchValue, posts]);
-
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [pageMax, searchValue]);
   return (
     <Row className="justify-content-center">
       <Col xs="12">

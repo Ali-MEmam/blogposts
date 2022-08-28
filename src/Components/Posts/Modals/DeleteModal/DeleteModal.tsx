@@ -33,7 +33,7 @@ const DeletePostModal: FC<IProps> = ({ post }) => {
               dispatch(getDeletePostStart(post.id));
             }}
           >
-            Delete
+            Confirm
           </Button>
         </Modal.Footer>
       </Modal>
