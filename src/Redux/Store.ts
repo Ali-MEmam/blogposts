@@ -11,7 +11,9 @@ export const store = configureStore({
     error: errorReducer,
   },
   middleware: (getDefaultMiddleWare) =>
-    getDefaultMiddleWare({ thunk: false }).concat(sagaMiddleware),
+    getDefaultMiddleWare({ thunk: false, serializableCheck: false }).concat(
+      sagaMiddleware
+    ),
 });
 
 sagaMiddleware.run(rootSaga);

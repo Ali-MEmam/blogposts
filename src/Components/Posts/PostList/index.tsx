@@ -8,9 +8,11 @@ import { Col, Row } from "react-bootstrap";
 import { Post } from "../../../Redux/Models/PostsModel";
 import Pagination from "../../Shared/Pagination/Pagination";
 import { SlicePagination } from "../../../utilities/Helpers";
+import PageMax from "../../Shared/PageMax/PageMax";
 const PostsList: FC = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(5);
+  const [pageMax, setPageMax] = useState<number>(10);
   const [filterdPost, setFilterdPost] = useState<Post[]>([]);
   const posts: Post[] = useSelector<RootState>(
     (store) => store.posts.posts
@@ -41,15 +43,25 @@ const PostsList: FC = () => {
             <PostsTable
               posts={
                 !!searchValue
-                  ? SlicePagination(filterdPost, 10, currentPage)
-                  : SlicePagination(posts, 10, currentPage)
+                  ? SlicePagination(filterdPost, pageMax, currentPage)
+                  : SlicePagination(posts, pageMax, currentPage)
               }
             />
-            <Pagination
-              totalNumber={!!searchValue ? filterdPost.length : posts.length}
-              handleChange={setCurrentPage}
-              currentPage={currentPage}
-            />
+            <Row className="justify-content-center">
+              <Col xs="auto">
+                <PageMax handleChange={setPageMax} value={pageMax} />
+              </Col>
+              <Col xs="auto">
+                <Pagination
+                  totalNumber={
+                    !!searchValue ? filterdPost.length : posts.length
+                  }
+                  handleChange={setCurrentPage}
+                  currentPage={currentPage}
+                  pageMax={pageMax}
+                />
+              </Col>
+            </Row>
           </div>
         </div>
       </Col>

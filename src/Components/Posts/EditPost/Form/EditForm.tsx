@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getUpdatePostStart } from "../../../../Redux/Actions/PostsActions/UpdatePostActions";
 import { Post } from "../../../../Redux/Models/PostsModel";
 import { RootState } from "../../../../Redux/Store";
@@ -14,7 +15,7 @@ const EditForm: FC = () => {
   const dispatch = useDispatch();
   const viewedPost = useSelector<RootState>((store) => store.posts.viewedPost);
   const [postData, setPostData] = useState<Post>(initalState);
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (viewedPost) {
       setPostData(viewedPost as Post);
@@ -30,7 +31,7 @@ const EditForm: FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!!postData.title && !!postData.body) {
-      dispatch(getUpdatePostStart(postData));
+      dispatch(getUpdatePostStart({ post: postData, navigate: navigate }));
     }
   };
   return (

@@ -24,18 +24,29 @@ const EditPost: FC = () => {
     <Row className="justify-content-center">
       <Col xs="12">
         <div className="postsview">
-          <Button
-            className="mb-3"
-            onClick={() => {
-              dispatch(
-                getSinglePostSuccess({ id: 0, title: "", body: "", userId: 0 })
-              );
-              navigate("/");
-            }}
-          >
-            Go Back
-          </Button>
-          <h2 className="postsview-header">Edit Post</h2>
+          <Row className="justify-content-between align-items-center">
+            <Col xs="auto">
+              <h2 className="postsview-header">Edit Post</h2>
+            </Col>
+            <Col xs="auto">
+              <Button
+                className="mb-3 mx-auto"
+                onClick={() => {
+                  dispatch(
+                    getSinglePostSuccess({
+                      id: 0,
+                      title: "",
+                      body: "",
+                      userId: 0,
+                    })
+                  );
+                  navigate("/blogposts");
+                }}
+              >
+                Go Back
+              </Button>
+            </Col>
+          </Row>
           <div className="postsview-body">
             <div>
               <EditForm />

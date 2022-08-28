@@ -1,4 +1,4 @@
-import { AnyAction, Reducer } from "@reduxjs/toolkit";
+import { Reducer } from "@reduxjs/toolkit";
 import { IPostReducerState, Post } from "../Models/PostsModel";
 
 import {
@@ -18,9 +18,9 @@ const initialState: IPostReducerState = {
   },
 };
 
-export const postsReducer: Reducer<IPostReducerState, AnyAction> = (
+export const postsReducer: Reducer<IPostReducerState, any> = (
   state: IPostReducerState = initialState,
-  action: AnyAction
+  action: any
 ) => {
   switch (action.type) {
     case FETCH_ALL_POSTS_SUCCESS:

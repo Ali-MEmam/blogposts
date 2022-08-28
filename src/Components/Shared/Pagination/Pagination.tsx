@@ -4,7 +4,7 @@ import { IProps } from "./model";
 
 const PaginationItems: FC<IProps> = ({
   totalNumber,
-  maxPage = 10,
+  pageMax,
   handleChange,
   currentPage,
 }) => {
@@ -14,7 +14,7 @@ const PaginationItems: FC<IProps> = ({
         onClick={() => handleChange(+currentPage - 1)}
         disabled={!(+currentPage - 1)}
       />
-      {Array.from(Array(Math.ceil(+totalNumber / 10)), (e, i) => {
+      {Array.from(Array(Math.ceil(+totalNumber / +pageMax)), (e, i) => {
         return (
           <Pagination.Item
             key={i}
@@ -27,7 +27,7 @@ const PaginationItems: FC<IProps> = ({
       })}
       <Pagination.Next
         onClick={() => handleChange(+currentPage + 1)}
-        disabled={+currentPage === Math.ceil(+totalNumber / 10)}
+        disabled={+currentPage === Math.ceil(+totalNumber / +pageMax)}
       />
     </Pagination>
   );

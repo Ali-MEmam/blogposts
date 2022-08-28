@@ -38,7 +38,7 @@ const PostsTable: FC<IProps> = ({ posts }) => {
                         className="poststable__body-actions--btn"
                         type="button"
                         onClick={() => {
-                          navigate(`/${post.id}`);
+                          navigate(`/blogposts/${post.id}`);
                         }}
                       >
                         <FontAwesomeIcon icon={faPenSquare} />

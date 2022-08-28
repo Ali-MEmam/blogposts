@@ -13,11 +13,13 @@ import {
   setLoaderEnd,
   setLoaderStart,
 } from "../Actions/LoaderActions/LoaderActions";
-import { getDeletePostSuccess } from "../Actions/PostsActions/DeletePostActions";
-import { getPostsSuccess } from "../Actions/PostsActions/GetAllAPostsctions";
-import { getSinglePostSuccess } from "../Actions/PostsActions/GetSinglePostActions";
-import { getUpdatePostSuccess } from "../Actions/PostsActions/UpdatePostActions";
-import { Post } from "../Models/PostsModel";
+import {
+  getUpdatePostSuccess,
+  getDeletePostSuccess,
+  getPostsSuccess,
+  getSinglePostSuccess,
+} from "../Actions/PostsActions";
+import { IPostUpdateAndNavigate } from "../Models/PostsModel";
 import {
   deletePostRequest,
   editPostRequest,
@@ -62,14 +64,15 @@ function* handleGetSinglePost(
 }
 
 function* handleEditPost(
-  action: PayloadAction<Post>
+  action: PayloadAction<IPostUpdateAndNavigate>
 ): Generator<SelectEffect | CallEffect | PutEffect, void, any> {
   try {
     yield put(setLoaderStart());
-    const posts = yield call(editPostRequest, action.payload);
+    const posts = yield call(editPostRequest, action.payload.post);
     if (posts.ok) {
-      yield put(getUpdatePostSuccess(action.payload));
+      yield put(getUpdatePostSuccess(action.payload.post));
       yield put(setLoaderEnd());
+      action.payload.navigate("/blogposts");
     }
   } catch (error) {
     yield put(setLoaderEnd());

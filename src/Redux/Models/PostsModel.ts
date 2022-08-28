@@ -8,3 +8,8 @@ export interface IPostReducerState {
   posts: Post[];
   viewedPost?: Post;
 }
+
+export interface IPostUpdateAndNavigate {
+  post: Post;
+  navigate: Function;
+}

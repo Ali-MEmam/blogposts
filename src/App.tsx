@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<PostsLayout />}>
+        <Route path="/blogposts" element={<PostsLayout />}>
           <Route path=":postId" element={<EditPost />} />
           <Route index element={<PostsList />} />
         </Route>
