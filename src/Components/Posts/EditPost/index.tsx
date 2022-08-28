@@ -1,6 +1,5 @@
 import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
-// import "./PostList.scss";
 import { Button, Col, Row } from "react-bootstrap";
 import EditForm from "./Form/EditForm";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,14 +7,7 @@ import {
   getSinglePostStart,
   getSinglePostSuccess,
 } from "../../../Redux/Actions/PostsActions/GetSinglePostActions";
-import { Post } from "../../../Redux/Models/PostsModel";
-
-const initalState: Post = {
-  id: 0,
-  title: "",
-  body: "",
-  userId: 0,
-};
+import { initalState } from "./model";
 
 const EditPost: FC = () => {
   const { postId } = useParams();

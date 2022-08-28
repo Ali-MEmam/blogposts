@@ -5,12 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { getUpdatePostStart } from "../../../../Redux/Actions/PostsActions/UpdatePostActions";
 import { Post } from "../../../../Redux/Models/PostsModel";
 import { RootState } from "../../../../Redux/Store";
-const initalState: Post = {
-  id: 0,
-  title: "",
-  body: "",
-  userId: 0,
-};
+import { initalState } from "../model";
+
 const EditForm: FC = () => {
   const dispatch = useDispatch();
   const viewedPost = useSelector<RootState, Post>(
